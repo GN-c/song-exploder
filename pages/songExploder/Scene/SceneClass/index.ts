@@ -79,6 +79,8 @@ export default class Scene {
     this.audioListener = new THREE.AudioListener();
     this.camera.add(this.audioListener);
 
+    console.log(this.audioListener);
+
     /**
      * add Resize Listeners
      */
@@ -154,7 +156,7 @@ export default class Scene {
       new Stem({
         matcapTexture: "./redGlowy.png",
         model: "./trumpet.glb",
-        audio: "./audio/sax.wav",
+        audio: "./audio/piano.wav",
         GLTFLoader: this.gltfLoader,
         TextureLoader: this.textureLoader,
         AudioLoader: this.audioLoader,
