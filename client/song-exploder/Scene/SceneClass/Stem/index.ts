@@ -13,7 +13,7 @@ interface StemProps {
   AudioLoader: THREE.AudioLoader;
   AudioListener: THREE.AudioListener;
   numberOfRings: number;
-  /** must be `integer` not floating number  */
+  /** must be `integer` not floating number in range `[5,15]`  */
   particleDensity: number;
   pointSize: number;
   amplitude: number;

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { FirstPersonControls } from "three/examples/jsm/controls/FirstPersonControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import Stem from "./Stem";
@@ -15,7 +15,7 @@ export default class Scene {
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
   private animationFrame: number;
-  private controls: OrbitControls;
+  private controls: FirstPersonControls;
   private textureLoader: THREE.TextureLoader;
   private gltfLoader: GLTFLoader;
   private stems: Stem[];
@@ -40,9 +40,16 @@ export default class Scene {
     /**
      * Orbit Controls
      */
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls = new FirstPersonControls(
+      this.camera,
+      this.renderer.domElement
+    );
     this.camera.position.set(0, 0, 1);
-    this.controls.update();
+
+    this.controls.lookSpeed = 0.1;
+    this.controls.verticalMin = 60 * (Math.PI / 180);
+    this.controls.verticalMax = 120 * (Math.PI / 180);
+    this.controls.constrainVertical = true;
 
     /**
      * set onLoadListener
@@ -172,7 +179,10 @@ export default class Scene {
   }
 
   private update = () => {
-    this.clock.getElapsedTime();
+    // this.clock.getElapsedTime();
+
+    this.controls.update(this.clock.getDelta());
+    this.camera.position.y = 0.2;
 
     this.stems.forEach((stem) => stem.update(this.clock.elapsedTime));
 
